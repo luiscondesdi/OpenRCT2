@@ -784,9 +784,12 @@ static Widget *window_options_page_widgets[] = {
                     break;
                 case WIDX_DRAWING_ENGINE_DROPDOWN:
                 {
-                    int32_t numItems = 3;
+                    int32_t numItems = 4;
 #ifdef DISABLE_OPENGL
-                    numItems = 2;
+                    numItems--;
+#endif
+#ifdef DISABLE_VULKAN
+                    numItems--;
 #endif
 
                     for (int32_t i = 0; i < numItems; i++)

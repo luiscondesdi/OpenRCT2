@@ -25,6 +25,10 @@ namespace OpenRCT2::Ui
     [[nodiscard]] std::unique_ptr<Drawing::IDrawingEngine> CreateOpenGLDrawingEngine(
         const std::shared_ptr<IUiContext>& uiContext);
 #endif
+#ifndef DISABLE_VULKAN
+    [[nodiscard]] std::unique_ptr<Drawing::IDrawingEngine> CreateVulkanDrawingEngine(
+        const std::shared_ptr<IUiContext>& uiContext);
+#endif
 
     class DrawingEngineFactory final : public Drawing::IDrawingEngineFactory
     {
@@ -41,6 +45,10 @@ namespace OpenRCT2::Ui
 #ifndef DISABLE_OPENGL
                 case DrawingEngine::OpenGL:
                     return CreateOpenGLDrawingEngine(uiContext);
+#endif
+#ifndef DISABLE_VULKAN
+                case DrawingEngine::Vulkan:
+                    return CreateVulkanDrawingEngine(uiContext);
 #endif
                 default:
                     return nullptr;

@@ -31,6 +31,7 @@ StringId DrawingEngineStringIds[] = {
     STR_DRAWING_ENGINE_SOFTWARE,
     STR_DRAWING_ENGINE_SOFTWARE_WITH_HARDWARE_DISPLAY,
     STR_DRAWING_ENGINE_OPENGL,
+    STR_DRAWING_ENGINE_VULKAN,
 };
 
 DrawingEngine drawing_engine_get_type()
@@ -53,7 +54,8 @@ static IDrawingEngine* GetDrawingEngine()
 bool DrawingEngineRequiresNewWindow(DrawingEngine srcEngine, DrawingEngine dstEngine)
 {
     bool openGL = srcEngine == DrawingEngine::OpenGL || dstEngine == DrawingEngine::OpenGL;
-    return Platform::RequireNewWindow(openGL);
+    bool vulkan = srcEngine == DrawingEngine::Vulkan || dstEngine == DrawingEngine::Vulkan;
+    return Platform::RequireNewWindow(openGL || vulkan);
 }
 
 void DrawingEngineInit()
